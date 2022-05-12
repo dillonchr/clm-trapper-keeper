@@ -11,6 +11,7 @@
       <button id="end">End Counsel</button>
     </div>
     <div class="assignments"></div>
+    <button id="clear">CLEAR NOTES</button>
     <style>
       body {
         font-size: 18px;
@@ -159,6 +160,7 @@
         return `${minutes}:${remainder.toString().padStart(2, "0")}`;
       }
 
+      let index = 0;
       for (const {
         duration,
         end,
@@ -233,9 +235,15 @@
 
         if (speaker && (householder || studentPart || studyPoint)) {
           const textarea = document.createElement("textarea");
-          if (studyPoint) {
-            textarea.textContent = `Study Point ${studyPoint}\n`;
+          const id = `counsel-${index}`;
+          textarea.id = id;
+          const previousContent = localStorage.getItem(id);
+          if (previousContent) {
+            textarea.value = previousContent;
+          } else if (studyPoint) {
+            textarea.value = `Study Point ${studyPoint}\n`;
           }
+          textarea.addEventListener("change", (e) => localStorage.setItem(id, e.target.value));
           div.appendChild(textarea);
         }
 
@@ -256,6 +264,11 @@
         }
 
         document.querySelector(".assignments").appendChild(div);
+
+        document.querySelector("#clear").addEventListener("click", function () {
+          localStorage.clear();
+          window.location.reload();
+        });
 
         let counselStart = 0;
         let counselActive = false;
@@ -278,6 +291,7 @@
           counselActive = false;
           setTimeout(() => (clock.className = "counsel-clock"), 1100);
         });
+        index++;
       }
     </script>
   </body>
