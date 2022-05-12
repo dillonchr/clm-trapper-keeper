@@ -104,12 +104,14 @@
         {
           title: "Bible Reading: 1 Samuel 23:24-24:7",
           speaker: "Brother Reader",
+          studyPoint: "1 - Accurate Reading",
           duration: 4,
         },
         {
           title: "Initial Call",
           speaker: "Sister Pioneer",
           householder: "Sister Householder",
+          studyPoint: "3 - Conversational Manner",
           duration: 3,
         },
       ];
@@ -120,7 +122,18 @@
         return `${minutes}:${remainder.toString().padStart(2, "0")}`;
       }
 
-      for (const { song, title, speaker, householder, me, duration, end, reader, studentPart } of assignments) {
+      for (const {
+        duration,
+        end,
+        householder,
+        me,
+        reader,
+        song,
+        speaker,
+        studentPart,
+        studyPoint,
+        title,
+      } of assignments) {
         let seconds = 0;
         let active = false;
         let finished = false;
@@ -181,8 +194,9 @@
           div.appendChild(ul);
         }
 
-        if (speaker && (householder || studentPart)) {
+        if (speaker && studyPoint) {
           const textarea = document.createElement("textarea");
+          textarea.value = `Study Point ${studyPoint}\n`;
           div.appendChild(textarea);
         }
 
