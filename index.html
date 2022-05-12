@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Meeting</title>
+  </head>
+  <body>
+    <div class="clocks">
+      <p class="counsel-clock"></p>
+      <button id="counsel">Start Counsel</button>
+      <button id="end">End Counsel</button>
+    </div>
+    <div class="assignments"></div>
+    <style>
+      body {
+        font-size: 18px;
+      }
+      button {
+        padding: 1rem;
+      }
+      input[type="checkbox"] {
+        height: 50px;
+        width: 50px;
+      }
+      .clocks {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 48%;
+      }
+      .assignments {
+        width: 50%;
+      }
+      .assignment {
+        border-bottom: dotted 1px black;
+        text-align: left;
+      }
+      textarea {
+        width: 100%;
+        height: 200px;
+        font-size: 20px;
+        font-family: serif;
+      }
+      .assignment.finished,
+      .assignment.active.finished.alert,
+      .assignment.active.finished.alert.warning,
+      .assignment.active.finished.alert.warning.danger,
+      .assignment.active.finished {
+        background: #ccc;
+        color: #666;
+      }
+      .assignment.active {
+        background: yellow;
+      }
+      .assignment.active.alert {
+        background: green;
+      }
+      .assignment.active.alert.warning {
+        background: orange;
+      }
+      .assignment.active.alert.warning.danger {
+        background: red;
+      }
+      .title {
+        display: flex;
+        justify-content: flex-start;
+      }
+      .title p {
+        margin-left: 20px;
+      }
+      .counsel-clock {
+        height: 150px;
+        width: 150px;
+        border: dotted 1px black;
+      }
+      .counsel-clock.warning {
+        background-color: orange;
+      }
+      .counsel-clock.danger {
+        background-color: red;
+      }
+    </style>
+    <script>
+      const assignments = [
+        { song: 127 },
+        {
+          title: "Opening Comments",
+          me: 1,
+          duration: 1,
+          end: "7:06",
+        },
+        {
+          title: "Treasures From God's Word: Wait Patiently on Jehovah",
+          speaker: "Brother Treasures",
+          duration: 10,
+          end: "7:16",
+        },
+        {
+          title: "Spiritual Gems",
+          me: 1,
+          duration: 10,
+          end: "7:26",
+        },
+        {
+          title: "Bible Reading: 1 Samuel 23:24-24:7",
+          speaker: "Brother Reader",
+          studyPoint: "1: Accurate Reading",
+          duration: 4,
+        },
+        {
+          title: "Initial Call",
+          speaker: "Sister Pioneer",
+          householder: "Sister Publisher",
+          duration: 3,
+        },
+        {
+          title: "Return Visit",
+          speaker: "Sister Bethelite",
+          householder: "Sister Gileadite",
+          duration: 4,
+        },
+        {
+          title: "Talk: Be Patient With Those Whom You Teach",
+          speaker: "Brother Speaker",
+          studentPart: true,
+          duration: 5,
+        },
+        { song: 134 },
+        {
+          title: "All Trials Have an Expiration Date",
+          speaker: "Brother Elder",
+          duration: 15,
+          end: "8:07",
+        },
+        {
+          title: "Congregation Bible Study",
+          speaker: "Brother Conductor",
+          reader: "Brother Reader",
+          duration: 30,
+          end: "8:37",
+        },
+        {
+          title: "Concluding Comments",
+          me: 1,
+          duration: 3,
+          end: "8:40",
+        },
+        { song: 55 },
+        {
+          title: "Closing Prayer",
+          speaker: "Brother Prayer",
+          duration: 5,
+        },
+      ];
+
+      function getTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainder = seconds % 60;
+        return `${minutes}:${remainder.toString().padStart(2, "0")}`;
+      }
+
+      for (const {
+        duration,
+        end,
+        householder,
+        me,
+        reader,
+        song,
+        speaker,
+        studentPart,
+        studyPoint,
+        title,
+      } of assignments) {
+        let seconds = 0;
+        let active = false;
+        let finished = false;
+
+        const div = document.createElement("div");
+        div.className = "assignment";
+        const button = document.createElement("button");
+
+        const speakers = [me ? "Dillon" : speaker, householder, reader].filter((n) => n);
+
+        const secondsEl = document.createElement("p");
+        secondsEl.className = "seconds";
+        const updateTime = (s) => {
+          seconds = s;
+          secondsEl.textContent = getTime(seconds);
+          const durationSecs = duration * 60;
+          const diff = durationSecs - seconds;
+          if (diff < 0) {
+            div.classList.add("danger");
+          } else if (diff < 30) {
+            div.classList.add("warning");
+          } else if (diff < 60) {
+            div.classList.add("alert");
+          }
+          /*
+          when within threshold, 60? 30 seconds?
+          change colors.
+          */
+        };
+        const timer = () => {
+          updateTime(seconds + 1);
+          if (!finished && active) {
+            setTimeout(() => timer(), 1000);
+          }
+        };
+        const finishedEl = document.createElement("input");
+        finishedEl.type = "checkbox";
+        finishedEl.addEventListener("click", ({ target }) => {
+          finished = target.checked;
+          div.classList.toggle("finished", finished);
+          button.disabled = finished || active;
+        });
+
+        const titleEl = document.createElement("div");
+        titleEl.className = "title";
+        titleEl.appendChild(finishedEl);
+        const p = document.createElement("p");
+        p.textContent = song ? `Song ${song}` : title;
+        titleEl.appendChild(p);
+        div.appendChild(titleEl);
+        if (0 < speakers.length) {
+          const ul = document.createElement("ul");
+          for (const speaker of speakers) {
+            const li = document.createElement("li");
+            li.textContent = speaker;
+            ul.appendChild(li);
+          }
+          div.appendChild(ul);
+        }
+
+        if (speaker && (householder || studentPart || studyPoint)) {
+          const textarea = document.createElement("textarea");
+          if (studyPoint) {
+            textarea.textContent = `Study Point ${studyPoint}\n`;
+          }
+          div.appendChild(textarea);
+        }
+
+        if (!song) {
+          updateTime(0);
+          div.appendChild(secondsEl);
+
+          button.textContent = "BEGIN";
+          button.addEventListener("click", () => {
+            active = !active;
+            div.classList.toggle("active", active);
+            button.disabled = finished || active;
+            if (active) {
+              timer();
+            }
+          });
+          div.appendChild(button);
+        }
+
+        document.querySelector(".assignments").appendChild(div);
+
+        let counselStart = 0;
+        let counselActive = false;
+        const counsel = document.querySelector("#counsel");
+        const clock = document.querySelector(".counsel-clock");
+        const bumpTime = () => {
+          const diff = Math.round((Date.now() - counselStart) / 1000);
+          clock.textContent = getTime(diff);
+          clock.className = ["counsel-clock", 60 < diff ? "danger" : 30 < diff ? "warning" : ""].join(" ");
+          if (counselActive) {
+            setTimeout(() => bumpTime(), 1000);
+          }
+        };
+        counsel.addEventListener("click", () => {
+          counselActive = true;
+          counselStart = Date.now();
+          bumpTime();
+        });
+        document.querySelector("#end").addEventListener("click", () => {
+          counselActive = false;
+          setTimeout(() => (clock.className = "counsel-clock"), 1100);
+        });
+      }
+    </script>
+  </body>
+</html>
