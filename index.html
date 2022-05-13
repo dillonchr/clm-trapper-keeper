@@ -11,6 +11,7 @@
       <button id="end">End Counsel</button>
     </div>
     <div class="assignments"></div>
+    <button id="clear">CLEAR</button>
     <style>
       body {
         font-size: 18px;
@@ -103,7 +104,7 @@
         },
         {
           title: "Bible Reading: 1 Samuel 23:24-24:7",
-          speaker: "Brother Reader",
+          speaker: "Brother Publisher",
           studyPoint: "1 - Accurate Reading",
           duration: 4,
         },
@@ -122,6 +123,7 @@
         return `${minutes}:${remainder.toString().padStart(2, "0")}`;
       }
 
+      let index = 0;
       for (const {
         duration,
         end,
@@ -196,7 +198,9 @@
 
         if (speaker && studyPoint) {
           const textarea = document.createElement("textarea");
-          textarea.value = `Study Point ${studyPoint}\n`;
+          const id = `counsel-${index}`;
+          textarea.addEventListener("change", ({ target }) => localStorage.setItem(id, target.value));
+          textarea.value = localStorage.getItem(id) || `Study Point ${studyPoint}\n`;
           div.appendChild(textarea);
         }
 
@@ -217,6 +221,10 @@
         }
 
         document.querySelector(".assignments").appendChild(div);
+        document.getElementById("clear").addEventListener("click", () => {
+          localStorage.clear();
+          window.location.reload();
+        });
 
         let counselStart = 0;
         let counselActive = false;
@@ -239,6 +247,7 @@
           counselActive = false;
           setTimeout(() => (clock.className = "counsel-clock"), 1100);
         });
+        index++;
       }
     </script>
   </body>
