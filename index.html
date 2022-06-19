@@ -201,8 +201,7 @@
           const id = `counsel-${index}`;
           textarea.id = id;
           textarea.addEventListener("change", ({ target }) => localStorage.setItem(id, target.value));
-          const prevContent = localStorage.getItem(id);
-          textarea.value = prevContent || `Study Point ${studyPoint}\n`;
+          textarea.value = localStorage.getItem(id) || `Study Point ${studyPoint}\n`;
           div.appendChild(textarea);
         }
 
