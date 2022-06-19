@@ -1,0 +1,71 @@
+body {
+  font-size: 18px;
+}
+button {
+  padding: 1rem;
+}
+input[type="checkbox"] {
+  height: 50px;
+  width: 50px;
+}
+.clocks {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 48%;
+}
+.assignments {
+  width: 50%;
+}
+.assignment {
+  border-bottom: dotted 1px black;
+  text-align: left;
+}
+textarea {
+  width: 100%;
+  height: 200px;
+  font-size: 20px;
+  font-family: serif;
+}
+textarea:focus,
+textarea:active {
+  background: #EFFACE;
+}
+.assignment.finished,
+.assignment.active.finished.alert,
+.assignment.active.finished.alert.warning,
+.assignment.active.finished.alert.warning.danger,
+.assignment.active.finished {
+  background: #ccc;
+  color: #666;
+}
+.assignment.active {
+  background: yellow;
+}
+.assignment.active.alert {
+  background: green;
+}
+.assignment.active.alert.warning {
+  background: orange;
+}
+.assignment.active.alert.warning.danger {
+  background: red;
+}
+.title {
+  display: flex;
+  justify-content: flex-start;
+}
+.title p {
+  margin-left: 20px;
+}
+.counsel-clock {
+  height: 150px;
+  width: 150px;
+  border: dotted 1px black;
+}
+.counsel-clock.warning {
+  background-color: orange;
+}
+.counsel-clock.danger {
+  background-color: red;
+}

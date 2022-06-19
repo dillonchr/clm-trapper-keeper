@@ -1,0 +1,66 @@
+const assignments = [
+  { song: 127 },
+  {
+    title: "Opening Comments",
+    me: 1,
+    duration: 1,
+    end: "7:06",
+  },
+  {
+    title: "Treasures From God's Word: Amnon's Selfishness Led to Tragedy",
+    speaker: "Sterling Snead",
+    duration: 10,
+    end: "7:16",
+  },
+  {
+    title: "Spiritual Gems",
+    me: 1,
+    duration: 10,
+    end: "7:26",
+  },
+  {
+    title: "Bible Reading: 2 Samuel 14:8-20",
+    speaker: "Alex Valdez",
+    studyPoint: "2 - Conversational Manner",
+    duration: 4,
+  },
+  {
+    title: "Initial Call",
+    speaker: "Heather Jarvis",
+    householder: "Jara Christensen",
+    studyPoint: "12 - Warmth and Empathy",
+    duration: 3,
+  },
+  {
+    title: "Return Visit",
+    speaker: "Ben Clements",
+    householder: "Brody Poling",
+    studyPoint: "18 - Informative to your Audience",
+    duration: 4,
+  },
+  {
+    title: "Bible Study",
+    speaker: "Chelsy Snead",
+    householder: "Tina Lewis",
+    studyPoint: "18 - Informative to your Audience",
+    duration: 5,
+  },
+  { song: 68 },
+  {
+    title: "Use 'Enjoy Life Forever!' to Build Faith in Jehovah and Jesus",
+    speaker: "Chuck Jarvis",
+    duration: 15,
+  },
+  {
+    title: "Congregation Bible Study: Lesson 9",
+    speaker: "Richard Farr",
+    reader: "Richard Burdyn",
+    duration: 30,
+  },
+  {
+    title: "Concluding Comments",
+    me: 1,
+    duration: 3,
+  },
+  { song: 47 },
+];
