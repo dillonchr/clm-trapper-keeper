@@ -4,20 +4,38 @@ function getTime(seconds) {
   return `${minutes}:${remainder.toString().padStart(2, "0")}`;
 }
 
+function parseHTML(str) {
+  var tmp = document.implementation.createHTMLDocument("");
+  tmp.body.innerHTML = str;
+  return tmp.body.children[0];
+}
+
 let index = 0;
 for (const { duration, end, householder, me, reader, song, speaker, studentPart, studyPoint, title } of assignments) {
   let seconds = 0;
   let active = false;
   let finished = false;
 
-  const div = document.createElement("div");
-  div.className = "assignment";
-  const button = document.createElement("button");
+  const div = parseHTML(`
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          ${title || "Song " + song}
+        </p>
+        <span class="card-header-icon timer">&mdash;</span>
+      </header>
+      <div class="card-content speakers"></div>
+      <footer class="card-footer">
+        <a href="#" class="start card-footer-item button is-primary">Start</a>
+        <a href="#" class="stop card-footer-item button is-danger">Done</a>
+      </footer>
+    </div>
+  `);
+  const button = div.querySelector("a.button.is-primary");
 
   const speakers = [me ? "Dillon" : speaker, householder, reader].filter((n) => n);
 
-  const secondsEl = document.createElement("p");
-  secondsEl.className = "seconds";
+  const secondsEl = div.querySelector("span.timer");
   const updateTime = (s) => {
     seconds = s;
     secondsEl.textContent = getTime(seconds);
@@ -41,21 +59,14 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
       setTimeout(() => timer(), 1000);
     }
   };
-  const finishedEl = document.createElement("input");
-  finishedEl.type = "checkbox";
-  finishedEl.addEventListener("click", ({ target }) => {
-    finished = target.checked;
-    div.classList.toggle("finished", finished);
-    button.disabled = finished || active;
+  const finishedEl = div.querySelector("a.stop");
+  finishedEl.addEventListener("click", (e) => {
+    e.preventDefault();
+    finished = true;
+    div.classList.toggle("finished", true);
+    button.setAttribute("disabled", "disabled");
   });
 
-  const titleEl = document.createElement("div");
-  titleEl.className = "title";
-  titleEl.appendChild(finishedEl);
-  const p = document.createElement("p");
-  p.textContent = song ? `Song ${song}` : title;
-  titleEl.appendChild(p);
-  div.appendChild(titleEl);
   if (0 < speakers.length) {
     const ul = document.createElement("ul");
     for (const speaker of speakers) {
@@ -63,7 +74,7 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
       li.textContent = speaker;
       ul.appendChild(li);
     }
-    div.appendChild(ul);
+    div.querySelector(".speakers").appendChild(ul);
   }
 
   if (speaker && studyPoint) {
@@ -73,15 +84,14 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
     textarea.addEventListener("change", ({ target }) => localStorage.setItem(id, target.value));
     const prevContent = localStorage.getItem(id);
     textarea.value = prevContent || `Study Point ${studyPoint}\n`;
-    div.appendChild(textarea);
+    div.querySelector(".speakers").appendChild(textarea);
   }
 
   if (!song) {
     updateTime(0);
-    div.appendChild(secondsEl);
 
-    button.textContent = "BEGIN";
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
       active = !active;
       div.classList.toggle("active", active);
       button.disabled = finished || active;
@@ -89,7 +99,8 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
         timer();
       }
     });
-    div.appendChild(button);
+  } else {
+    button.setAttribute("disabled", "disabled");
   }
 
   document.querySelector(".assignments").appendChild(div);

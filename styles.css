@@ -1,25 +1,7 @@
+@import url("bulma.min.css");
+
 body {
   font-size: 18px;
-}
-button {
-  padding: 1rem;
-}
-input[type="checkbox"] {
-  height: 50px;
-  width: 50px;
-}
-.clocks {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 48%;
-}
-.assignments {
-  width: 50%;
-}
-.assignment {
-  border-bottom: dotted 1px black;
-  text-align: left;
 }
 textarea {
   width: 100%;
@@ -31,32 +13,28 @@ textarea:focus,
 textarea:active {
   background: #EFFACE;
 }
-.assignment.finished,
-.assignment.active.finished.alert,
-.assignment.active.finished.alert.warning,
-.assignment.active.finished.alert.warning.danger,
-.assignment.active.finished {
+.assignments .card {
+  margin-top: 3rem;
+}
+.card.finished,
+.card.active.finished.alert,
+.card.active.finished.alert.warning,
+.card.active.finished.alert.warning.danger,
+.card.active.finished {
   background: #ccc;
   color: #666;
 }
-.assignment.active {
-  background: yellow;
+.card.active {
+  background: #FE5;
 }
-.assignment.active.alert {
-  background: green;
+.card.active.alert {
+  background: #0DA;
 }
-.assignment.active.alert.warning {
-  background: orange;
+.card.active.alert.warning {
+  background: #FACE75;
 }
-.assignment.active.alert.warning.danger {
-  background: red;
-}
-.title {
-  display: flex;
-  justify-content: flex-start;
-}
-.title p {
-  margin-left: 20px;
+.card.active.alert.warning.danger {
+  background: #FAD;
 }
 .counsel-clock {
   height: 150px;
