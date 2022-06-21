@@ -63,8 +63,13 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
   finishedEl.addEventListener("click", (e) => {
     e.preventDefault();
     finished = true;
+    const d = new Date();
     div.classList.toggle("finished", true);
     button.setAttribute("disabled", "disabled");
+    button.classList.remove("is-primary");
+    finishedEl.setAttribute("disabled", "disabled");
+    finishedEl.innerText = `${d.getHours() - 12}:${String(d.getMinutes()).padStart(2, "0")} PM`;
+    finishedEl.classList.remove("is-danger");
   });
 
   if (0 < speakers.length) {
