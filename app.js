@@ -106,6 +106,7 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
     });
   } else {
     button.setAttribute("disabled", "disabled");
+    button.classList.remove("is-primary");
   }
 
   document.querySelector(".assignments").appendChild(div);
