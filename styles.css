@@ -36,6 +36,11 @@ textarea:active {
 .card.active.alert.warning.danger {
   background: #FAD;
 }
+.clocks {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
 .counsel-clock {
   height: 150px;
   width: 150px;
