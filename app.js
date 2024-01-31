@@ -11,7 +11,18 @@ function parseHTML(str) {
 }
 
 let index = 0;
-for (const { duration, end, householder, me, reader, song, speaker, studentPart, studyPoint, title } of assignments) {
+for (const {
+  duration,
+  end,
+  householder,
+  me,
+  reader,
+  song,
+  speaker,
+  studentPart,
+  studyPoint,
+  title
+} of assignments) {
   let seconds = 0;
   let active = false;
   let finished = false;
@@ -33,10 +44,12 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
   `);
   const button = div.querySelector("a.button.is-primary");
 
-  const speakers = [me ? "Dillon" : speaker, householder, reader].filter((n) => n);
+  const speakers = [me ? "Dillon" : speaker, householder, reader].filter(
+    n => n
+  );
 
   const secondsEl = div.querySelector("span.timer");
-  const updateTime = (s) => {
+  const updateTime = s => {
     seconds = s;
     secondsEl.textContent = getTime(seconds);
     const durationSecs = duration * 60;
@@ -60,7 +73,7 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
     }
   };
   const finishedEl = div.querySelector("a.stop");
-  finishedEl.addEventListener("click", (e) => {
+  finishedEl.addEventListener("click", e => {
     e.preventDefault();
     finished = true;
     const d = new Date();
@@ -68,7 +81,9 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
     button.setAttribute("disabled", "disabled");
     button.classList.remove("is-primary");
     finishedEl.setAttribute("disabled", "disabled");
-    finishedEl.innerText = `${d.getHours() - 12}:${String(d.getMinutes()).padStart(2, "0")} PM`;
+    finishedEl.innerText = `${d.getHours() - 12}:${String(
+      d.getMinutes()
+    ).padStart(2, "0")} PM`;
     finishedEl.classList.remove("is-danger");
   });
 
@@ -86,7 +101,9 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
     const textarea = document.createElement("textarea");
     const id = `counsel-${index}`;
     textarea.id = id;
-    textarea.addEventListener("change", ({ target }) => localStorage.setItem(id, target.value));
+    textarea.addEventListener("change", ({ target }) =>
+      localStorage.setItem(id, target.value)
+    );
     const prevContent = localStorage.getItem(id);
     textarea.value = prevContent || `Study Point ${studyPoint}\n`;
     div.querySelector(".speakers").appendChild(textarea);
@@ -95,7 +112,7 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
   if (!song) {
     updateTime(0);
 
-    button.addEventListener("click", (e) => {
+    button.addEventListener("click", e => {
       e.preventDefault();
       active = !active;
       div.classList.toggle("active", active);
@@ -122,7 +139,10 @@ for (const { duration, end, householder, me, reader, song, speaker, studentPart,
   const bumpTime = () => {
     const diff = Math.round((Date.now() - counselStart) / 1000);
     clock.textContent = getTime(diff);
-    clock.className = ["counsel-clock", 60 < diff ? "danger" : 30 < diff ? "warning" : ""].join(" ");
+    clock.className = [
+      "counsel-clock",
+      60 < diff ? "danger" : 30 < diff ? "warning" : ""
+    ].join(" ");
     if (counselActive) {
       setTimeout(() => bumpTime(), 1000);
     }
