@@ -13,6 +13,9 @@ textarea:focus,
 textarea:active {
   background: #EFFACE;
 }
+.assignments {
+  margin-bottom: 3rem;
+}
 .assignments .card {
   margin-top: 3rem;
 }
@@ -37,9 +40,7 @@ textarea:active {
   background: #FAD;
 }
 .clocks {
-  position: fixed;
-  top: 0;
-  right: 0;
+  background: white;
 }
 .counsel-clock {
   height: 150px;

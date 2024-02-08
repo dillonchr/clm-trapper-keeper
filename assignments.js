@@ -1,5 +1,5 @@
 const assignments = [
-  { song: "150 - Seek God for Your Deliverance" },
+  { song: "118 - Give Us More Faith" },
   {
     title: "Opening Comments",
     me: 1,
@@ -7,43 +7,67 @@ const assignments = [
     end: "7:06"
   },
   {
-    title: "Take Sides with God's Kingdom",
-    speaker: "Steve Snead",
+    title: "Remain Loyal Despite the Actions of Others",
+    speaker: "Jeff King",
     duration: 10,
     end: "7:16"
   },
   {
     title: "Spiritual Gems",
-    speaker: "Bob Zagrabelny",
+    speaker: "Christian Bell",
     duration: 10,
     end: "7:26"
   },
   {
-    title: "Bible Reading: Psalm 3:1-4:8",
-    speaker: "Roney Gregory",
-    studyPoint: "12 - Warmth and Empathy",
+    title: "Bible Reading: Psalm 7:1-11",
+    speaker: "Clint Jones",
+    studyPoint: "10 - Modulation",
     duration: 4
   },
   {
-    title: "Naturalness - What Philip Did",
-    speaker: "Chuck Jarvis",
-    duration: 7
+    title: "Starting a Conversation",
+    speaker: "???",
+    householder: "Lauren Valdez",
+    studyPoint: "House to house\nInterest in Others\nBe Flexible",
+    duration: 3
   },
   {
-    title: "Naturalness - Imitate Philip",
-    speaker: "Rick Miller",
-    duration: 8
-  },
-  { song: "32 - Take Sides With Jehovah!" },
-  {
-    title: "GB Update 2024 #1",
-    me: 1,
-    duration: 14
+    title: "Starting a Conversation",
+    speaker: "Sophie Stoffel",
+    householder: "Pat Freeman",
+    studyPoint:
+      "Informal Witnessing\nNaturalness\nBe Patient\nFind a way to let the other person know you are a JW",
+    duration: 2
   },
   {
-    title: "Congregation Bible Study: Chapter 5 ¶9-15, p41 box",
+    title: "Following Up",
+    speaker: "Irina Miller",
+    householder: "Chloe Jones",
+    studyPoint:
+      "House to House\nHumility\nRemain mild\nHouseholder wants to argue with you.",
+    duration: 2
+  },
+  {
+    title: "Explaining Your Beliefs",
+    speaker: "Heather Jarvis",
+    householder: "Tanya Gregory",
+    studyPoint: [
+      "Demonstration",
+      "Kindness",
+      "Speak kindly and respectfully",
+      "Why Do Jehovah’s Witnesses Choose Not to Participate in Nationalistic Ceremonies?"
+    ].join("\n")
+  },
+  { song: "99 - Myriads of Brothers" },
+  {
+    title: "Annual Service Report",
     speaker: "Aaron Stoffel",
-    reader: "Bob McDaniel",
+    duration: 15
+  },
+  {
+    title: "Congregation Bible Study: Chapter 5 ¶16-22, box on p. 42",
+    speaker: "Shanti Vemuri",
+    reader: "Danny Freeman",
     duration: 30
   },
   {
@@ -51,6 +75,6 @@ const assignments = [
     me: 1,
     duration: 3
   },
-  { song: "61 - Forward, You Witnesses!" },
-  { title: "Prayer", speaker: "Bob Zagrabelny" }
+  { song: "83 - From House to House" },
+  { title: "Prayer", speaker: "Shanti Vemuri" }
 ];

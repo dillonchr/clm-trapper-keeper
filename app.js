@@ -39,6 +39,7 @@ for (const {
       <footer class="card-footer">
         <a href="#" class="start card-footer-item button is-primary">Start</a>
         <a href="#" class="stop card-footer-item button is-danger">Done</a>
+        <a href="#" class="start-counsel card-footer-item button is-warning">Counsel</a>
       </footer>
     </div>
   `);
@@ -61,10 +62,6 @@ for (const {
     } else if (diff < 60) {
       div.classList.add("alert");
     }
-    /*
-          when within threshold, 60? 30 seconds?
-          change colors.
-          */
   };
   const timer = () => {
     updateTime(seconds + 1);
@@ -97,6 +94,7 @@ for (const {
     div.querySelector(".speakers").appendChild(ul);
   }
 
+  const counselButton = div.querySelector(".start-counsel");
   if (speaker && studyPoint) {
     const textarea = document.createElement("textarea");
     const id = `counsel-${index}`;
@@ -105,8 +103,39 @@ for (const {
       localStorage.setItem(id, target.value)
     );
     const prevContent = localStorage.getItem(id);
-    textarea.value = prevContent || `Study Point ${studyPoint}\n`;
+    textarea.value = prevContent || studyPoint + "\n";
     div.querySelector(".speakers").appendChild(textarea);
+
+    let counselStart = 0;
+    let counselActive = false;
+    const bumpTime = () => {
+      if (counselActive) {
+        const diff = Math.round((Date.now() - counselStart) / 1000);
+        counselButton.textContent = getTime(diff);
+        counselButton.className = [
+          "start-counsel card-footer-item button",
+          59 < diff
+            ? "is-danger"
+            : 48 < diff
+            ? "is-danger is-light"
+            : "is-warning is-light"
+        ].join(" ");
+        setTimeout(() => bumpTime(), 1000);
+      }
+    };
+    counselButton.addEventListener("click", e => {
+      e.preventDefault();
+      if (counselActive) {
+        counselActive = false;
+        counselButton.setAttribute("disabled", "disabled");
+      } else if (!counselActive && "disabled" !== e.target.getAttribute("disabled")) {
+        counselActive = true;
+        counselStart = Date.now();
+        bumpTime();
+      }
+    });
+  } else {
+    counselButton.parentElement.removeChild(counselButton);
   }
 
   if (!song) {
@@ -132,29 +161,5 @@ for (const {
     window.location.reload();
   });
 
-  let counselStart = 0;
-  let counselActive = false;
-  const counsel = document.querySelector("#counsel");
-  const clock = document.querySelector(".counsel-clock");
-  const bumpTime = () => {
-    const diff = Math.round((Date.now() - counselStart) / 1000);
-    clock.textContent = getTime(diff);
-    clock.className = [
-      "counsel-clock",
-      60 < diff ? "danger" : 30 < diff ? "warning" : ""
-    ].join(" ");
-    if (counselActive) {
-      setTimeout(() => bumpTime(), 1000);
-    }
-  };
-  counsel.addEventListener("click", () => {
-    counselActive = true;
-    counselStart = Date.now();
-    bumpTime();
-  });
-  document.querySelector("#end").addEventListener("click", () => {
-    counselActive = false;
-    setTimeout(() => (clock.className = "counsel-clock"), 1100);
-  });
   index++;
 }
