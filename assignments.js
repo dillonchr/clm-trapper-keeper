@@ -8,7 +8,7 @@ const assignments = [
   },
   {
     title: "Remain Loyal Despite the Actions of Others",
-    speaker: "Jeff King",
+    speaker: "Don Watson",
     duration: 10,
     end: "7:16"
   },
@@ -20,13 +20,13 @@ const assignments = [
   },
   {
     title: "Bible Reading: Psalm 7:1-11",
-    speaker: "Clint Jones",
+    speaker: "Evan Schoppel",
     studyPoint: "10 - Modulation",
     duration: 4
   },
   {
     title: "Starting a Conversation",
-    speaker: "???",
+    speaker: "Jara Christensen",
     householder: "Lauren Valdez",
     studyPoint: "House to house\nInterest in Others\nBe Flexible",
     duration: 3
@@ -56,7 +56,8 @@ const assignments = [
       "Kindness",
       "Speak kindly and respectfully",
       "Why Do Jehovah’s Witnesses Choose Not to Participate in Nationalistic Ceremonies?"
-    ].join("\n")
+    ].join("\n"),
+    duration: 4,
   },
   { song: "99 - Myriads of Brothers" },
   {
@@ -66,7 +67,7 @@ const assignments = [
   },
   {
     title: "Congregation Bible Study: Chapter 5 ¶16-22, box on p. 42",
-    speaker: "Shanti Vemuri",
+    speaker: "Chuck Jarvis",
     reader: "Danny Freeman",
     duration: 30
   },
@@ -76,5 +77,5 @@ const assignments = [
     duration: 3
   },
   { song: "83 - From House to House" },
-  { title: "Prayer", speaker: "Shanti Vemuri" }
+  { title: "Prayer", speaker: "Chuck Jarvis" }
 ];
